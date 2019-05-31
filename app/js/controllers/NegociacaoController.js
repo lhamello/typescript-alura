@@ -23,6 +23,7 @@ System.register(["../views/index", "../models/index"], function (exports_1, cont
                     this._negociacoesView.update(this._negociacoes);
                 }
                 adicionar(event) {
+                    const t1 = performance.now();
                     event.preventDefault();
                     let data = new Date(this._inputData.val().replace(/-/g, ','));
                     if (!this.ehDiaUtil(data)) {
@@ -33,6 +34,8 @@ System.register(["../views/index", "../models/index"], function (exports_1, cont
                     this._negociacoes.adicionar(negociacao);
                     this._negociacoesView.update(this._negociacoes);
                     this._mensagemView.update('Negociação adicionada com sucesso!');
+                    const t2 = performance.now();
+                    console.log(`O tempo de execução de adicionar é de ${t2 - t1} ms`);
                 }
                 ehDiaUtil(data) {
                     return (data.getDay() != DiaDaSemana.SABADO && data.getDay() != DiaDaSemana.DOMINGO);
