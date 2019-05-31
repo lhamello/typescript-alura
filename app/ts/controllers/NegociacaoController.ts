@@ -1,5 +1,6 @@
-import { MensagemView, NegociacoesView } from '../views/index';
+import { logarTempoDeExecucao } from '../helpers/decorators/index';
 import { Negociacao, Negociacoes } from '../models/index';
+import { MensagemView, NegociacoesView } from '../views/index';
 
 export class NegociacaoController {
     
@@ -17,9 +18,8 @@ export class NegociacaoController {
         this._negociacoesView.update(this._negociacoes);
     }
 
-    adicionar(event: Event) {
-        const t1 = performance.now();
-
+    @logarTempoDeExecucao()
+    adicionar(event: Event) {        
         event.preventDefault();
 
         let data = new Date(this._inputData.val().replace(/-/g, ','));
@@ -38,9 +38,6 @@ export class NegociacaoController {
 
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação adicionada com sucesso!');
-
-        const t2 = performance.now();
-        console.log(`O tempo de execução de adicionar é de ${t2 - t1} ms`);
     }
 
     private ehDiaUtil(data: Date): boolean {
