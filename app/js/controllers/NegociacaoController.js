@@ -26,9 +26,6 @@ System.register(["../helpers/decorators/index", "../models/index", "../views/ind
                     this._negociacoes = new index_2.Negociacoes();
                     this._negociacoesView = new index_3.NegociacoesView('#negociacoesView');
                     this._mensagemView = new index_3.MensagemView('#mensagemView', true);
-                    this._inputData = $('#data');
-                    this._inputQuantidade = $('#quantidade');
-                    this._inputValor = $('#valor');
                     this._negociacoesView.update(this._negociacoes);
                 }
                 adicionar(event) {
@@ -48,8 +45,14 @@ System.register(["../helpers/decorators/index", "../models/index", "../views/ind
                 }
             };
             __decorate([
-                index_1.logarTempoDeExecucao()
-            ], NegociacaoController.prototype, "adicionar", null);
+                index_1.domInject('#data')
+            ], NegociacaoController.prototype, "_inputData", void 0);
+            __decorate([
+                index_1.domInject('#quantidade')
+            ], NegociacaoController.prototype, "_inputQuantidade", void 0);
+            __decorate([
+                index_1.domInject('#valor')
+            ], NegociacaoController.prototype, "_inputValor", void 0);
             exports_1("NegociacaoController", NegociacaoController);
             (function (DiaDaSemana) {
                 DiaDaSemana[DiaDaSemana["DOMINGO"] = 0] = "DOMINGO";

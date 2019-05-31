@@ -9,7 +9,6 @@ export class Negociacoes {
         this._negociacoes.push(negociacao);
     }
 
-    @logarTempoDeExecucao(true)
     paraArray(): Negociacao[] {
         return ([] as Negociacao[]).concat(this._negociacoes);
     }
