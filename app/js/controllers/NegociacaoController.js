@@ -60,8 +60,11 @@ System.register(["../helpers/index", "../helpers/decorators/index", "../models/i
                             throw new Error(res.statusText);
                         }
                     })
-                        .then(negociacoes => {
-                        negociacoes.forEach(Negociacao => this._negociacoes.adicionar(Negociacao));
+                        .then(negociacoesParaImportar => {
+                        const negociacoesJaImportadas = this._negociacoes.paraArray();
+                        negociacoesParaImportar
+                            .filter(negociacao => !negociacoesJaImportadas.some(jaImportada => negociacao.ehIgual(jaImportada)))
+                            .forEach(Negociacao => this._negociacoes.adicionar(Negociacao));
                         this._negociacoesView.update(this._negociacoes);
                     });
                 }

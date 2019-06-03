@@ -1,3 +1,4 @@
+export * from './Igualavel';
 export * from './Imprimivel';
 export * from './Negociacao';
 export * from './NegociacaoParcial';
