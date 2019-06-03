@@ -1,7 +1,6 @@
-import { Imprimivel } from "./Imprimivel";
-import { Igualavel } from "./Igualavel";
+import { MeuObjeto } from "./MeuObjeto";
 
-export class Negociacao implements Igualavel<Negociacao>, Imprimivel {
+export class Negociacao implements MeuObjeto<Negociacao> {
     
     constructor(readonly data: Date, readonly quantidade: number, readonly valor: number) {}
     
