@@ -1,4 +1,4 @@
-import { domInject } from '../helpers/decorators/index';
+import { domInject, throttle } from '../helpers/decorators/index';
 import { Negociacao, NegociacaoParcial, Negociacoes } from '../models/index';
 import { MensagemView, NegociacoesView } from '../views/index';
 
@@ -18,9 +18,8 @@ export class NegociacaoController {
         this._negociacoesView.update(this._negociacoes);
     }
 
-    adicionar(event: Event) {        
-        event.preventDefault();
-
+    @throttle()
+    adicionar(event: Event) {                
         let data = new Date(this._inputData.val().replace(/-/g, ','));
 
         if (!this.ehDiaUtil(data)) {
@@ -43,7 +42,8 @@ export class NegociacaoController {
         return (data.getDay() != DiaDaSemana.SABADO && data.getDay() != DiaDaSemana.DOMINGO);                    
     }
 
-     importarDados() {
+    @throttle()
+    importarDados() {
          
         function isOk(res: Response) {
             
@@ -54,17 +54,17 @@ export class NegociacaoController {
             }
         }
 
-            fetch('http://localhost:8080/dados')
-                .then(res => isOk(res))
-                .then(res => res.json())
-                .then((dados: NegociacaoParcial[]) => {
-                    dados
-                        .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
-                        .forEach(negociacao => this._negociacoes.adicionar(negociacao))
-                    this._negociacoesView.update(this._negociacoes)
-                })
-                .catch(err => console.log(err.message));
-     }
+        fetch('http://localhost:8080/dados')
+        .then(res => isOk(res))
+        .then(res => res.json())
+        .then((dados: NegociacaoParcial[]) => {
+            dados
+                .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
+                .forEach(negociacao => this._negociacoes.adicionar(negociacao))
+            this._negociacoesView.update(this._negociacoes)
+        })
+        .catch(err => console.log(err.message));
+    }
 }
 
 enum DiaDaSemana {
