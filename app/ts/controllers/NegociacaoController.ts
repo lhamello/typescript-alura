@@ -1,7 +1,7 @@
 import { imprimir } from '../helpers/index';
 import { domInject, throttle } from '../helpers/decorators/index';
-import { Negociacao, NegociacaoParcial, Negociacoes } from '../models/index';
-import { NegociacaoService, HandlerFunction } from '../services/index';
+import { Negociacao, Negociacoes } from '../models/index';
+import { NegociacaoService } from '../services/index';
 import { MensagemView, NegociacoesView } from '../views/index';
 
 export class NegociacaoController {

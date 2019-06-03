@@ -1,5 +1,5 @@
-import { Negociacao } from "../models/index";
+import { Imprimivel } from "../models/index";
 
-export function imprimir(...objetos: any[]) {
+export function imprimir(...objetos: Imprimivel[]) {
     objetos.forEach(objeto =>objeto.toString());
 }
