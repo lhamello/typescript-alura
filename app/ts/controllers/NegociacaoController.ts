@@ -1,6 +1,6 @@
 import { domInject, throttle } from '../helpers/decorators/index';
 import { Negociacao, NegociacaoParcial, Negociacoes } from '../models/index';
-import { NegociacaoService } from '../services/index';
+import { NegociacaoService, HandlerFunction } from '../services/index';
 import { MensagemView, NegociacoesView } from '../views/index';
 
 export class NegociacaoController {
@@ -46,20 +46,18 @@ export class NegociacaoController {
 
     @throttle()
     importarDados() {
-         
-        function isOk(res: Response) {
-            
-            if (res.ok) {
-                return res;
-            } else {
-                throw new Error(res.statusText);
-            }
-        }
-
-        this._service
-            .obterNegociacoes(isOk)
-            .then(negociacoes => {
                 
+        this._service
+            .obterNegociacoes(res => {
+
+                if (res.ok) {
+                    return res;
+                } else {
+                    throw new Error(res.statusText);
+                }
+            })
+            .then(negociacoes => {
+
                 negociacoes.forEach(Negociacao => 
                     this._negociacoes.adicionar(Negociacao))
                 
